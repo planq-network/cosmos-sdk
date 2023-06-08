@@ -38,6 +38,7 @@ Ref: https://keepachangelog.com/en/1.0.0/
 ## [Unreleased]
 
 ## [v0.46.3](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.46.3) - 2022-10-20
+Notably, the [barberry security fix](https://forum.cosmos.network/t/cosmos-sdk-security-advisory-barberry/10825). All chains using Cosmos SDK v0.46.0 and above must upgrade to `v0.46.13` **immediately**. A chain is safe as soon as **33%+1** of the voting power has upgraded. Coordinate with your validators to upgrade as soon as possible.
 
 ATTENTION:
 

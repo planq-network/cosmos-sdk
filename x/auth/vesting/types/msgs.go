@@ -189,7 +189,7 @@ func (msg MsgCreatePeriodicVestingAccount) ValidateBasic() error {
 		if !period.Amount.IsAllPositive() {
 			return sdkerrors.ErrInvalidCoins.Wrap(period.Amount.String())
 		}
-		
+
 		if period.Length < 1 {
 			return fmt.Errorf("invalid period length of %d in period %d, length must be greater than 0", period.Length, i)
 		}
