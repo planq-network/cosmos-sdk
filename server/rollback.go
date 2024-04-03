@@ -6,11 +6,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/spf13/cobra"
-	tmcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
+	tmcmd "github.com/tendermint/tendermint/cmd/cometbft/commands"
 )
 
 // NewRollbackCmd creates a command to rollback tendermint and multistore state by one height.
 func NewRollbackCmd(appCreator types.AppCreator, defaultNodeHome string) *cobra.Command {
+	var removeBlock bool
+
 	cmd := &cobra.Command{
 		Use:   "rollback",
 		Short: "rollback cosmos-sdk and tendermint state by one height",
@@ -32,7 +34,7 @@ application.
 			}
 			app := appCreator(ctx.Logger, db, nil, ctx.Viper)
 			// rollback tendermint state
-			height, hash, err := tmcmd.RollbackState(ctx.Config)
+			height, hash, err := tmcmd.RollbackState(ctx.Config, removeBlock)
 			if err != nil {
 				return fmt.Errorf("failed to rollback tendermint state: %w", err)
 			}
@@ -47,6 +49,7 @@ application.
 		},
 	}
 
+	cmd.Flags().BoolVar(&removeBlock, "hard", false, "remove last block as well as state")
 	cmd.Flags().String(flags.FlagHome, defaultNodeHome, "The application home directory")
 	return cmd
 }
